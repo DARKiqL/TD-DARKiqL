@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TD @BBdevL</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="rotate-hint" aria-hidden="true">
+    <svg class="rot-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="23" y="6" width="30" height="46" rx="5"/>
+        <circle cx="38" cy="45" r="2.2" fill="currentColor" stroke="none"/>
+        <path d="M18 26 A18 18 0 0 1 31 11"/>
+        <path d="M18 26 l-5 -4 M18 26 l7 -2"/>
+    </svg>
+    <h2>لطفا دستگاه خود را افقی کنید</h2>
+    <p>این بازی در حالت افقی تجربه بهتری میدهد</p>
+</div>
+
+<div id="selection-screen" class="screen">
+    <h1>
+        کانال توسعه دهنده در تلگرام
+        @BBdevL
+    </h1>
+    <div id="selection-top-actions">
+        <button id="open-announcement-btn" type="button">📢 اخبار واعلامیه</button>
+        <button id="open-leaderboard-btn" type="button">🏆 رنکینگ</button>
+        <button id="open-wiki-btn" type="button">📖 توضیحات</button>
+        <button id="open-settings-btn" type="button">🔧 تنظیمات</button>
+    </div>
+    <div id="selection-slots"></div>
+    <div id="selection-main">
+        <div id="tower-pool"></div>
+        <div id="selection-info">
+            <h4>اطلاعات برج های دفاعی</h4>
+            <p>برای اطلاعات دقیق تر موس خود را روی برج نگه دارید</p>
+        </div>
+    </div>
+    <div id="selection-buttons-container">
+        <button id="select-map-btn" class="selection-btn" disabled>اول برج های خود را انتخاب کنید و بعد نقشه مورد نظر</button>
+        <button id="start-game-test-btn" class="selection-btn" disabled>قسمت تست</button>
+    </div>
+</div>
+
+<div id="map-selection-screen" class="screen">
+    <h1>انتخاب نقشه</h1>
+    <div id="map-list"></div>
+    <div id="map-selection-buttons-container">
+        <button id="back-to-tower-select-btn" class="selection-btn" style="background-color: #777;">بازگشت</button>
+        <button id="start-game-from-map-btn" class="selection-btn" disabled>شروع بازی</button>
+    </div>
+</div>
+
+
+<div id="game-wrapper">
+    <div id="game-container">
+        <div id="skill-rail" aria-label="قابلیت‌های باز شده"></div>
+        <div id="settings-dock">
+            <div id="pause-row">
+                <button id="pause-button" type="button" aria-pressed="false" title="توقف بازی" aria-label="توقف بازی">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M10 8h10v32H10zm18 0h10v32H28z"/></svg>
+                    <span>توقف</span>
+                </button>
+                <button id="quick-restart-btn" type="button" title="شروع مجدد با تنظیمات فعلی">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>
+                    <span>شروع مجدد</span>
+                </button>
+            </div>
+            <div id="settings-row">
+            <button id="settings-button" type="button" title="تنظیمات" aria-label="تنظیمات">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <span>تنظیمات</span>
+            </button>
+                <button id="abandon-button" type="button" title="انصراف از این بازی">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8.5 11V5.5a1.5 1.5 0 0 1 3 0V10m0-5.5a1.5 1.5 0 0 1 3 0V10m0-4a1.5 1.5 0 0 1 3 0v5m-9-3a1.5 1.5 0 0 0-3 0v5c0 4.4 2.8 7 7 7s7-3.1 7-7v-2a1.5 1.5 0 0 0-3 0v1"/></svg>
+                    <span>انصراف</span>
+                </button>
+            </div>
+        </div>
+        <div id="canvas-container">
+            <!-- OPTIMIZATION: Added backgroundCanvas for static elements -->
+            <canvas id="backgroundCanvas"></canvas>
+            <canvas id="gameCanvas"></canvas>
+            <div id="wave-countdown" role="status" aria-live="polite"></div>
+        </div>
+        <div id="floating-info-panel"></div>
+        <div id="tooltip"></div>
+        <div id="ui-panel">
+            <div class="stats-display">
+                <div id="money-display">金钱: 2000</div>
+                <div id="hp-display">基地生命: 3</div>
+                <div id="wave-display">波次: 0/30</div>
+            </div>
+            <button class="action-btn" id="start-wave-btn" style="display: none;"></button>
+            <div id="speed-controls" role="group" aria-label="سرعت بازی"></div>
+            <div id="tower-selection">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal">
+    <div id="modal-content">
+        <h2 id="modal-title">پایان بازی</h2>
+        <p id="modal-text">پایگاه شما نابود شد.</p>
+        <div id="score-summary" aria-live="polite"></div>
+        <div class="modal-actions">
+            <button id="upload-score-btn" type="button">ارسال به رتبه‌بندی</button>
+            <button id="replay-btn">شروع مجدد</button>
+            <button id="restart-btn">بازگشت به منو</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal">
+    <div id="confirm-modal-content">
+        <h2>شروع سریع</h2>
+        <p>آیا مطمئن هستید که می‌خواهید با تنظیمات فعلی از ابتدا شروع کنید؟ پیشرفت فعلی بلافاصله از دست خواهد رفت.</p>
+        <div class="confirm-actions">
+            <button id="confirm-restart-yes" class="action-btn">تأیید شروع مجدد</button>
+            <button id="confirm-restart-no" class="action-btn">لغو</button>
+        </div>
+    </div>
+</div>
+
+<div id="abandon-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="abandon-confirm-title">
+    <div id="abandon-confirm-content">
+        <h2 id="abandon-confirm-title">انصراف از این بازی؟</h2>
+        <p>پس از تأیید، بازی فعلی بلافاصله پایان یافته و به منوی اصلی بازمی‌گردید.</p>
+        <div class="confirm-actions">
+            <button id="confirm-abandon-yes" class="action-btn">تأیید انصراف</button>
+            <button id="confirm-abandon-no" class="action-btn">ادامه بازی</button>
+        </div>
+    </div>
+</div>
+
+<div id="preferences-modal" role="dialog" aria-modal="true" aria-labelledby="preferences-title">
+    <section id="preferences-content">
+        <button id="preferences-close-x" type="button" aria-label="بستن تنظیمات">✕</button>
+        <header class="preferences-header">
+            <h2 id="preferences-title">تنظیمات بازی</h2>
+        </header>
+        <div id="preferences-body">
+            <section class="preference-section">
+                <h3>صوتی</h3>
+                <div class="preference-audio-grid">
+                    <label class="settings-row" for="bgm-volume"><span>موسیقی زمینه</span><output id="bgm-volume-value">45%</output><input class="settings-slider" id="bgm-volume" type="range" min="0" max="100" value="45"></label>
+                    <label class="settings-row" for="sfx-volume"><span>جلوه‌های صوتی جنگ</span><output id="sfx-volume-value">50%</output><input class="settings-slider" id="sfx-volume" type="range" min="0" max="100" value="50"></label>
+                </div>
+            </section>
+            <section class="preference-section">
+                <h3>جزئیات برج‌های دفاعی</h3>
+                <p>حالت کلاسیک، پنجره شناور کنار برج را نشان می‌دهد؛ حالت مدرن، پنل افقی را در پایین میدان جنگ نمایش می‌دهد.</p>
+                <div class="detail-mode-options" role="radiogroup" aria-label="نحوه نمایش جزئیات برج‌های دفاعی">
+                    <label class="detail-mode-option"><input type="radio" name="tower-detail-mode" value="classic" checked><span><b>کلاسیک (پیش‌فرض)</b><small>پنجره اطلاعات شناور در کنار برج انتخاب شده.</small></span></label>
+                    <label class="detail-mode-option"><input type="radio" name="tower-detail-mode" value="modern"><span><b>مدرن</b><small>پنل اطلاعات افقی، مناسب برای استفاده با کامپیوتر.</small></span></label>
+                </div>
+            </section>
+            <section class="preference-section">
+                <h3>کلیدهای میانبر</h3>
+                <p>پس از انتخاب برج، می‌توانید از کلیدهای میانبر برای ارتقا، فروش و انتخاب هدف استفاده کنید. کلیدهای ۱ تا ۷ به ترتیب باز شدن قابلیت‌ها اختصاص داده می‌شوند.</p>
+                <div class="shortcut-grid" id="shortcut-grid">
+                    <div class="shortcut-row"><span>ارتقا برج</span><button class="keybinding-capture" type="button" data-key-binding="upgrade">W</button></div>
+                    <div class="shortcut-row"><span>فروش برج</span><button class="keybinding-capture" type="button" data-key-binding="sell">S</button></div>
+                    <div class="shortcut-row"><span>انتخاب هدف به چپ</span><button class="keybinding-capture" type="button" data-key-binding="targetPrevious">Q</button></div>
+                    <div class="shortcut-row"><span>انتخاب هدف به راست</span><button class="keybinding-capture" type="button" data-key-binding="targetNext">E</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۱</span><button class="keybinding-capture" type="button" data-key-binding="skill1">1</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۲</span><button class="keybinding-capture" type="button" data-key-binding="skill2">2</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۳</span><button class="keybinding-capture" type="button" data-key-binding="skill3">3</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۴</span><button class="keybinding-capture" type="button" data-key-binding="skill4">4</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۵</span><button class="keybinding-capture" type="button" data-key-binding="skill5">5</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۶</span><button class="keybinding-capture" type="button" data-key-binding="skill6">6</button></div>
+                    <div class="shortcut-row"><span>قابلیت ۷</span><button class="keybinding-capture" type="button" data-key-binding="skill7">7</button></div>
+                </div>
+            </section>
+        </div>
+        <footer class="preferences-footer"><button id="restore-shortcuts-btn" type="button">بازگردانی کلیدهای پیش‌فرض</button></footer>
+    </section>
+</div>
+
+<div id="announcement-modal" role="dialog" aria-label="اعلامیه بروزرسانی">
+    <div id="announcement-content">
+        <button id="announce-close-x" type="button" aria-label="بستن">✕</button>
+        <h2>تنظیمات تعادل فصل آزمایشی</h2>
+        <p class="announce-sub">مطالب زیر شامل تغییرات واقعی اعداد و مکانیزم‌های این فصل آزمایشی نسبت به نسخه قبلی است.</p>
+        <p class="announce-compare-note"><span class="announce-value-before">نسخه قدیمی</span><span class="announce-value-arrow">→</span><span class="announce-value-after">نسخه فعلی</span></p>
+        <div class="announce-legend">
+            <span class="tag tag-buff">تقویت</span>
+            <span class="tag tag-nerf">تنظیم</span>
+            <span class="tag tag-new">جدید</span>
+            <span class="tag tag-rework">بازطراحی</span>
+        </div>
+        <div class="announce-body">
+            <section class="announce-tower">
+                <h3 style="color:#8bc34a">برج کمان</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>فاصله بین حملات (۱/۲/۳/۴/EX): <span class="announce-value-before">0.50 / 0.47 / 0.42 / 0.37 / 0.33 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">0.65 / 0.65 / 0.60 / 0.60 / 0.50 ثانیه</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>برد (۱/۲/۳/۴/EX): <span class="announce-value-before">6 / 6.5 / 7 / 8 / 8</span><span class="announce-value-arrow">→</span><span class="announce-value-after">5 / 5.5 / 6 / 6.5 / 7</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">150 / 200 / 250 / 350 / 1550</span><span class="announce-value-arrow">→</span><span class="announce-value-after">200 / 250 / 300 / 500 / 1500</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>شعاع تیر انفجاری EX: <span class="announce-value-before">3.5</span><span class="announce-value-arrow">→</span><span class="announce-value-after">3</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#bda08f">توپ جنگی</h3>
+                <ul>
+                    <li><span class="tag tag-rework">تنظیم</span>برد (۱/۲/۳/۴/EX): <span class="announce-value-before">5 / 7 / 9 / 10 / 11</span><span class="announce-value-arrow">→</span><span class="announce-value-after">6.5 / 7 / 8 / 9 / 10</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">400 / 300 / 500 / 700 / 2800</span><span class="announce-value-arrow">→</span><span class="announce-value-after">400 / 500 / 600 / 700 / 2000</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب انفجاری: <span class="announce-value-before">50%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">60%</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>فاصله بین حملات EX: <span class="announce-value-before">0.58 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">0.70 ثانیه</span></li>
+                    <li><span class="tag tag-rework">بازطراحی</span>لیزر ویژه EX روی رئیس‌ها: <span class="announce-value-before">تأثیری ندارد</span><span class="announce-value-arrow">→</span><span class="announce-value-after">۵ برابر آسیب حمله معمولی</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#9c27b0">برج جادویی</h3>
+                <ul>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب (۱/۲/۳/۴/EX): <span class="announce-value-before">10 / 17 / 23 / 30 / 80</span><span class="announce-value-arrow">→</span><span class="announce-value-after">12 / 17 / 25 / 32 / 100</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>برد (۱/۲/۳/۴/EX): <span class="announce-value-before">6 / 7 / 8 / 8.5 / 9</span><span class="announce-value-arrow">→</span><span class="announce-value-after">7 / 7 / 8 / 8 / 10</span></li>
+                    <li><span class="tag tag-buff">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">500 / 500 / 800 / 1000 / 3800</span><span class="announce-value-arrow">→</span><span class="announce-value-after">500 / 600 / 700 / 800 / 2500</span></li>
+                    <li><span class="tag tag-rework">بازطراحی</span>اثر EX: <span class="announce-value-before">هر ضربه ۴٪ مقاومت کنترل را کاهش می‌دهد، روی رئیس‌ها بی‌تأثیر است</span><span class="announce-value-arrow">→</span><span class="announce-value-after">هر حمله ۱ لایه آسیب‌پذیری اضافه می‌کند، حداکثر ۵۰ لایه؛ هر لایه ۱٪ آسیب بیشتر</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#29b6f6">برج کندکننده</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>برد (۱/۲/۳/۴/EX): <span class="announce-value-before">3 / 3.5 / 4 / 5 / 7</span><span class="announce-value-arrow">→</span><span class="announce-value-after">3 / 3.5 / 4 / 4.5 / 5</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>کندی (۱/۲/۳/۴/EX): <span class="announce-value-before">20% / 30% / 40% / 50% / 60%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">20% / 25% / 30% / 35% / 40%</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>فاصله بین حملات (۱/۲/۳/۴/EX): <span class="announce-value-before">1.67 / 1.50 / 1.33 / 1.17 / 1.08 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1.67 / 1.60 / 1.50 / 1.40 / 1.20 ثانیه</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">500 / 500 / 600 / 650 / 2700</span><span class="announce-value-arrow">→</span><span class="announce-value-after">400 / 500 / 600 / 700 / 2200</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>مدت زمان کندی: <span class="announce-value-before">2 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">4 ثانیه</span>؛ افزایش برد سطح ۴ و EX: <span class="announce-value-before">تحت تأثیر سکوی موسیقی</span><span class="announce-value-arrow">→</span><span class="announce-value-after">تحت تأثیر سکوی موسیقی نیست</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>مدت زمان یخ‌زدگی (معمولی / رئیس): <span class="announce-value-before">1 / 1 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">4 / 2 ثانیه</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#ff7043">برج انفجاری</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>آسیب (۱/۲/۳/۴/EX): <span class="announce-value-before">10 / 15 / 20 / 25 / 80</span><span class="announce-value-arrow">→</span><span class="announce-value-after">8 / 13 / 20 / 30 / 80</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>شعاع انفجار (۱/۲/۳/۴/EX): <span class="announce-value-before">3 / 3.5 / 4 / 5 / 8</span><span class="announce-value-arrow">→</span><span class="announce-value-after">2.5 / 3 / 4 / 5 / 6</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">500 / 500 / 700 / 800 / 2800</span><span class="announce-value-arrow">→</span><span class="announce-value-after">600 / 650 / 700 / 800 / 3000</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>افزایش آسیب EX به ازای هر دشمن هدف: <span class="announce-value-before">10%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">20%</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>حداکثر تعداد ساخت معمولی: <span class="announce-value-before">نامحدود</span><span class="announce-value-arrow">→</span><span class="announce-value-after">۸ برج</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#ff5252">پرتو گاما</h3>
+                <ul>
+                    <li><span class="tag tag-buff">تقویت</span>فاصله بین حملات (۱/۲/۳/۴): <span class="announce-value-before">2.0 / 1.83 / 1.67 / 1.50 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1.50 / 1.30 / 1.10 / 0.80 ثانیه</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>تعداد اهداف زنجیره‌ای (۱/۲/۳/۴): <span class="announce-value-before">3 / 4 / 6 / 8</span><span class="announce-value-arrow">→</span><span class="announce-value-after">5 / 7 / 9 / 12</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>برد زنجیره‌ای (۱/۲/۳/۴): <span class="announce-value-before">4 / 5 / 6 / 8</span><span class="announce-value-arrow">→</span><span class="announce-value-after">5 / 6 / 7 / 8</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب زنجیره‌ای: <span class="announce-value-before">۷۰٪ آسیب پایه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">۹۰٪ آسیب پایه</span>؛ حداکثر تعداد ساخت: <span class="announce-value-before">۵ برج</span><span class="announce-value-arrow">→</span><span class="announce-value-after">۱۰ برج</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#607d8b">خط مسلسل</h3>
+                <ul>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب (۱/۲/۳/۴/EX): <span class="announce-value-before">2.5 / 3.5 / 4.5 / 6 / 10</span><span class="announce-value-arrow">→</span><span class="announce-value-after">4 / 5 / 6 / 8 / 12</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">1500 / 1450 / 1750 / 2250 / 8000</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1200 / 1400 / 1600 / 2000 / 6000</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>حداکثر تعداد ساخت معمولی / EX: <span class="announce-value-before">3 / 1</span><span class="announce-value-arrow">→</span><span class="announce-value-after">5 / 3</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#ffd700">چنگال دزد</h3>
+                <ul>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب (۱/۲/۳/۴/EX): <span class="announce-value-before">1 / 1.5 / 2 / 4 / 10</span><span class="announce-value-arrow">→</span><span class="announce-value-after">2 / 3 / 5 / 7 / 10</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>فاصله بین حملات (۱/۲/۳/۴/EX): <span class="announce-value-before">1.67 / 1.33 / 1.17 / 0.92 / 0.83 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1.50 / 1.30 / 1.10 / 0.90 / 0.83 ثانیه</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>فاصله بین دزدیدن (۱/۲/۳/۴/EX): <span class="announce-value-before">20 / 18 / 15 / 10 / 8 ضربه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">20 / 20 / 15 / 15 / 10 ضربه</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>مقدار دزدیدن در هر بار (۱/۲/۳/۴/EX): <span class="announce-value-before">20 / 25 / 30 / 50 / 60</span><span class="announce-value-arrow">→</span><span class="announce-value-after">30 / 35 / 40 / 60 / 70</span></li>
+                    <li><span class="tag tag-rework">تنظیم</span>پاداش کشتن با علامت جایزه: <span class="announce-value-before">20</span><span class="announce-value-arrow">→</span><span class="announce-value-after">30</span>؛ پیش‌نیاز دزدیدن EX: <span class="announce-value-before">1000</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1500</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">150 / 150 / 200 / 400 / 1500</span><span class="announce-value-arrow">→</span><span class="announce-value-after">200 / 250 / 300 / 450 / 1800</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#e91e63">سکوی موسیقی</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>افزایش برد (۱/۲/۳/۴): <span class="announce-value-before">15% / 20% / 25% / 30%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">10% / 12% / 15% / 20%</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴): <span class="announce-value-before">800 / 1200 / 1400 / 1600</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1200 / 1500 / 1800 / 2500</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#f44336">برج ماتریکس</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>قیمت (۱/۲/۳/۴/EX): <span class="announce-value-before">300 / 300 / 500 / 800 / 3000</span><span class="announce-value-arrow">→</span><span class="announce-value-after">300 / 400 / 600 / 800 / 4000</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#B0BEC5">چاه موشک</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>آسیب EX به رئیس‌ها بر اساس درصد جان فعلی: <span class="announce-value-before">5%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">3%</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>مدت زمان گیج‌کنندگی روی رئیس‌ها: <span class="announce-value-before">مدت زمان گیج‌کنندگی اصلی رئیس</span><span class="announce-value-arrow">→</span><span class="announce-value-after">۷۰٪ مدت زمان اصلی</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#4FC3F7">چراغ راهنمای جاذبه</h3>
+                <ul>
+                    <li><span class="tag tag-rework">بازطراحی</span>شرط فعال‌سازی: <span class="announce-value-before">حتی بدون هدف نیز به‌طور دوره‌ای فعال می‌شود</span><span class="announce-value-arrow">→</span><span class="announce-value-after">پس از حضور دشمن در محدوده، ۰.۵ ثانیه صبر کرده و فعال می‌شود</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>برد (۱/۲/۳/۴): <span class="announce-value-before">4 / 4.5 / 5 / 5.5</span><span class="announce-value-arrow">→</span><span class="announce-value-after">3 / 3.5 / 4 / 4.5</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>فاصله بین حملات (۱/۲/۳/۴): <span class="announce-value-before">6.67 / 6.33 / 6.00 / 5.33 ثانیه</span><span class="announce-value-arrow">→</span><span class="announce-value-after">6.50 / 6.40 / 6.20 / 6.00 ثانیه</span></li>
+                    <li><span class="tag tag-nerf">تنظیم</span>فاصله پرتاب به عقب (۱/۲/۳/۴): <span class="announce-value-before">1 / 1.5 / 2 / 2.2</span><span class="announce-value-arrow">→</span><span class="announce-value-after">1 / 1.3 / 1.7 / 2</span></li>
+                    <li><span class="tag tag-buff">تنظیم</span>قیمت (۱/۲/۳/۴): <span class="announce-value-before">300 / 300 / 500 / 700</span><span class="announce-value-arrow">→</span><span class="announce-value-after">200 / 300 / 400 / 500</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#FFD700">محراب افتخار</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>ضریب پول اضافی (۱/۲/۳/۴): <span class="announce-value-before">20% / 40% / 60% / 80%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">10% / 30% / 50% / 70%</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#fff8e1">نورافکن</h3>
+                <ul>
+                    <li><span class="tag tag-buff">تقویت</span>آسیب (۱/۲/۳/۴/EX): <span class="announce-value-before">5 / 10 / 20 / 40 / 50</span><span class="announce-value-arrow">→</span><span class="announce-value-after">8 / 13 / 27 / 50 / 84</span></li>
+                    <li><span class="tag tag-buff">تقویت</span>احتمال ضربه بحرانی دوستان در محدوده EX: <span class="announce-value-before">15%</span><span class="announce-value-arrow">→</span><span class="announce-value-after">25%</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#9c27b0">تنظیمات دشمنان</h3>
+                <ul>
+                    <li><span class="tag tag-nerf">تنظیم</span>ضریب جان دشمنان دارای سپر: <span class="announce-value-before">×1.4</span><span class="announce-value-arrow">→</span><span class="announce-value-after">×1.7</span>؛ جان سپر معادل ۵۰٪ جان پایه است.</li>
+                    <li><span class="tag tag-nerf">تنظیم</span>سرعت حرکت پایه رئیس‌ها: <span class="announce-value-before">×0.9</span><span class="announce-value-arrow">→</span><span class="announce-value-after">×1.0</span></li>
+                </ul>
+            </section>
+            <section class="announce-tower">
+                <h3 style="color:#9c27b0">دشمن جدید: احضارکننده <span class="tag tag-new">جدید</span></h3>
+                <ul>
+                    <li><span class="tag tag-new">جدید</span>موج‌های ظهور: <span class="announce-value-before">ندارد</span><span class="announce-value-arrow">→</span><span class="announce-value-after">در موج‌های ۱۰، ۱۵، ۲۰ و ۲۵ هر کدام ۱ عدد، در انتهای صف ثابت</span></li>
+                    <li><span class="tag tag-new">جدید</span>داده‌های اصلی: <span class="announce-value-before">ندارد</span><span class="announce-value-arrow">→</span><span class="announce-value-after">جان ×۳، سرعت ×۰.۵، اندازه ۱۸ پیکسل</span></li>
+                    <li><span class="tag tag-new">جدید</span>مکانیزم احضار: <span class="announce-value-before">ندارد</span><span class="announce-value-arrow">→</span><span class="announce-value-after">هر ۵۰ ثانیه ۲ دشمن معمولی و ۱ دشمن دارای سپر احضار می‌کند</span></li>
+                </ul>
+            </section>
+        </div>
+        <div class="announce-footer">
+            <label class="announce-dismiss"><input type="checkbox" id="announce-dont-show"> دیگر نشان نده</label>
+            <button id="announce-ok" type="button">متوجه شدم</button>
+        </div>
+    </div>
+</div>
+
+<div id="leaderboard-modal" role="dialog" aria-modal="true" aria-label="رتبه‌بندی">
+    <section id="leaderboard-content">
+        <button id="leaderboard-close-x" type="button" aria-label="بستن رتبه‌بندی">✕</button>
+        <header class="leaderboard-header">
+            <h2>رتبه‌بندی نقشه‌ها: فصل آزمایشی</h2>
+            <p>بازی هنوز در مرحله آزمایشی است و تغییرات مکرر رخ می‌دهد</p>
+        </header>
+        <div id="leaderboard-account"></div>
+        <div id="leaderboard-map-tabs" role="tablist" aria-label="فیلتر نقشه"></div>
+        <div id="leaderboard-status" role="status" aria-live="polite"></div>
+        <ol id="leaderboard-list"></ol>
+    </section>
+</div>
+
+<div id="wiki-modal" role="dialog" aria-modal="true" aria-label="راهنمای تصویری">
+    <section id="wiki-content">
+        <button id="wiki-close-x" type="button" aria-label="بستن راهنما">✕</button>
+        <header class="wiki-header">
+            <h2><svg class="ui-svg-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 5.5c2.2-1.1 4.7-.9 7.5.8v12c-2.8-1.7-5.3-1.9-7.5-.8zM19.5 5.5c-2.2-1.1-4.7-.9-7.5.8v12c2.8-1.7 5.3-1.9 7.5-.8z"/></svg>راهنمای تصویری برج‌ها و دشمنان</h2>
+            <p>داده‌های کامل برج‌ها و دشمنان، ویژگی‌ها و مدل‌های واقعی.</p>
+        </header>
+        <div id="wiki-tabs" role="tablist" aria-label="دسته‌بندی راهنما"></div>
+        <div id="wiki-body"></div>
+    </section>
+</div>
+
+
+
+    <script src="js/constants.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/data/maps.js"></script>
+    <script src="js/data/towers.js"></script>
+    <script src="js/entities/tower.js"></script>
+    <script src="js/entities/enemy.js"></script>
+    <script src="js/entities/projectiles.js"></script>
+    <script src="js/entities/effects.js"></script>
+    <script src="js/game-logic.js"></script>
+    <script src="js/selection.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/wiki.js"></script>
+</body>
+</html>
